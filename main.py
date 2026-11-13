@@ -2,5 +2,8 @@
 import os
 import shutil
 
-out = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-shutil.copyfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "entry.png"), os.path.join(out, "entry.png"))
+src = os.path.join(os.path.dirname(os.path.abspath(__file__)), "entry.png")
+out = os.path.join(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"), "entry.png")
+os.makedirs(os.path.dirname(out), exist_ok=True)
+shutil.copyfile(src, out)
+assert os.path.getsize(src) == os.path.getsize(out)
